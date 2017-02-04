@@ -10,11 +10,14 @@ PROG=mstest
 	$(CXX) $(CXXFLAGS) $(CXX_OPTS) $< -o $@ 
 
 
-all: $(PROG).o 
+all: $(PROG)
+
+$(PROG): $(PROG).o
 	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o $(PROG) \
 		main.c \
 		MotionSensor/libMotionSensor.a \
-		libs/libI2Cdev.a
+		libs/libI2Cdev.a \
+		-lzmq -lmsgpack
 
 $(PROG).o: MotionSensor/libMotionSensor.a libs/libI2Cdev.a
 
